@@ -48,8 +48,7 @@ class Ficha:
     def decrease_xp(self, valor):
         self.xp -= valor
 
-    # Getters e Setters
-    # Em Python geralmente não se usa getters/setters, mas coloquei para equivalência ao Java
+    # Getters and Setters
 
     def get_nome(self):
         return self.nome
