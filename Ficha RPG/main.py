@@ -7,79 +7,144 @@ def main():
 
     # Primeiro loop — preenchimento da ficha
     while True:
-        ficha.nome = input("Digite Nome: ")
+        ficha.nome = input("Digite Nome (texto): ")
 
-        ficha.hp_max = float(input("Hp: "))
-        ficha.mp_max = float(input("Mp: "))
-        ficha.xp = float(input("Xp: "))
+        while True:
+            try:
+                ficha.hp_max = float(input("Hp (número): "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Hp.")
 
-        ficha.str = float(input("Defina os Atributos, Força: "))
-        ficha.dex = float(input("Destreza: "))
-        ficha.sap = float(input("Inteligencia: "))
-        ficha.sab = float(input("Sabedoria: "))
-        ficha.car = float(input("Carisma: "))
+        while True:
+            try:
+                ficha.mp_max = float(input("Mp (número): "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Mp.")
+
+        while True:
+            try:
+                ficha.xp = float(input("Xp (número): "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Xp.")
+
+        while True:
+            try:
+                ficha.str = float(input("Defina os Atributos, Força: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Força.")
+
+        while True:
+            try:
+                ficha.dex = float(input("Destreza: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Destreza.")
+
+        while True:
+            try:
+                ficha.sap = float(input("Inteligencia: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Inteligencia.")
+
+        while True:
+            try:
+                ficha.sab = float(input("Sabedoria: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Sabedoria.")
+
+        while True:
+            try:
+                ficha.car = float(input("Carisma: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Carisma.")
+
+        while True:
+            try:
+                ficha.ouro = float(input("Moedas - Ouro: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Ouro.")
+
+        while True:
+            try:
+                ficha.prata = float(input("Prata: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Prata.")
+
+        while True:
+            try:
+                ficha.cobre = float(input("Cobre: "))
+                break
+            except ValueError:
+                print("Por favor, digite um número válido para Cobre.")
 
         print(f"\n{ficha.view_ficha()}")
+
         resposta = input("Essa ficha está correta? Digite 1 para Sim: ")
 
         if resposta == "1":
             print("Salvo")
             break
         else:
-            print("Preencha Novamente, seu bosta")
+            print("Preencha novamente.")
 
-    # Segundo loop — menu de operações
+    # Segundo Loop — Menu
     while True:
-        print("\nEscolha uma opção:")
-        print("1 - Aumentar HP")
-        print("2 - Diminuir HP")
-        print("3 - Aumentar MP")
-        print("4 - Diminuir MP")
-        print("5 - Aumentar XP")
-        print("6 - Diminuir XP")
-        print("7 - Mostrar ficha")
-        print("8 - Sair")
+        print("\nEscolha uma Opção:")
+        print("1 - Aumentar Atributos")
+        print("2 - Diminuir Atributos")
+        print("3 - Mostrar a ficha")
+        print("4 - Sair")
 
         opcao = input("Opção: ")
 
-        # Para operações, só perguntamos modificador se necessário
-        if opcao in {"1", "2", "3", "4", "5", "6"}:
-            modificador = float(input("Valor: "))
+        if opcao in {"1", "2"}:
+            print("\nAtributos disponíveis:")
+            atributos_validos = {
+                "hp_max", "mp_max", "xp", "str", "dex", "sap", "sab", "car",
+                "ouro", "prata", "cobre"
+            }
 
-        match opcao:
-            case "1":
-                ficha.increase_hp(modificador)
-                print(ficha.view_ficha())
+            print(", ".join(atributos_validos))
 
-            case "2":
-                ficha.decrease_hp(modificador)
-                print(ficha.view_ficha())
+            attr = input("Digite o atributo que deseja modificar: ")
 
-            case "3":
-                ficha.increase_mp(modificador)
-                print(ficha.view_ficha())
+            while attr not in atributos_validos:
+                print("Atributo inválido. Tente novamente.")
+                attr = input("Digite o atributo que deseja modificar: ")
 
-            case "4":
-                ficha.decrease_mp(modificador)
-                print(ficha.view_ficha())
+            while True:
+                try:
+                    valor = float(input("Digite o valor: "))
+                    break
+                except ValueError:
+                    print("Por favor, digite um número válido.")
 
-            case "5":
-                ficha.increase_xp(modificador)
-                print(ficha.view_ficha())
+            if opcao == "1":
+                ficha.add(attr, valor)
+            else:
+                ficha.sub(attr, valor)
 
-            case "6":
-                ficha.decrease_xp(modificador)
-                print(ficha.view_ficha())
+            print("\nAtributo atualizado!")
+            print(ficha.view_ficha())
 
-            case "7":
-                print(ficha.view_ficha())
+        elif opcao == "3":
+            print(f"\n{ficha.view_ficha()}")
 
-            case "8":
-                print("Saindo...")
-                break
+        elif opcao == "4":
+            print("Saindo...")
+            break
 
-            case _:
-                print("Out of Range")
+        else:
+            print("Opção inválida. Tente novamente.")
 
 
 if __name__ == "__main__":
